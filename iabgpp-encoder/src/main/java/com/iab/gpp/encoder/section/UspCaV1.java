@@ -115,6 +115,9 @@ public class UspCaV1 extends AbstractEncodableSegmentedBitStringSection {
        * a maximum of encoding version 2 the first 2 bits in the core segment will evaluate to 0.
        */
       String segmentBitString = base64UrlEncoder.decode(encodedSegments[i]);
+      if((segmentBitString.length() / 8) < 6) {
+        segmentBitString = base64UrlEncoder.decode(encodedSegments[i] + "A");
+      }
       switch (segmentBitString.substring(0, 2)) {
         case "00": {
           segmentBitStrings[0] = segmentBitString;

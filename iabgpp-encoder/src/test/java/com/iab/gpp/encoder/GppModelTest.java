@@ -659,6 +659,17 @@ public class GppModelTest {
         decodedModel.getFieldValue(TcfEuV2.NAME, TcfEuV2Field.PURPOSE_CONSENTS));
     Assertions.assertEquals(new ArrayList<>(List.of(21, 32, 81, 128, 173, 210, 238, 755)),
         decodedModel.getFieldValue(TcfEuV2.NAME, TcfEuV2Field.VENDOR_CONSENTS));
+  }
 
+  @Test
+  void testIsRestricted1() {
+    try {
+      String gppConsent = "DBABBg~BUoAAAA";
+      GppModel gppModel = new GppModel(gppConsent);
+      Assertions.assertEquals(1, gppModel.getSectionIds().size());
+      Assertions.assertEquals(gppModel.getSection(8).getName(), "uspcav1");
+    } catch (DecodingException e) {
+      e.printStackTrace();
+    }
   }
 }
